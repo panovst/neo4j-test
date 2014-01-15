@@ -56,7 +56,7 @@ public class EmbeddedNeo4j
     public static void main( final String[] args )
     {
         EmbeddedNeo4j hello = new EmbeddedNeo4j();
-        hello.createDb();
+//        hello.createDb();
 		hello.readData();
 //        hello.removeData();
         hello.shutDown();
@@ -68,6 +68,7 @@ public class EmbeddedNeo4j
 			registerShutdownHook( graphDb );
 		}
 
+		Transaction tx = graphDb.beginTx();
 
 		GlobalGraphOperations operations = GlobalGraphOperations.at(graphDb);
 		for (Node node : operations.getAllNodes()) {
@@ -76,6 +77,9 @@ public class EmbeddedNeo4j
 				System.out.println("prop.key : " + key);
 			}
 		}
+
+		tx.success();
+		tx.finish();
 	}
 
     void createDb()
