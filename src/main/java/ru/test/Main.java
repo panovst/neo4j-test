@@ -1,6 +1,8 @@
 package ru.test;
 
-import ru.test.kladr.KladrNode;
+import ru.test.application.command.KladrNodeCommand;
+import ru.test.application.command.KladrRelationshipCommand;
+import ru.test.kladr.KladrRelationshipType;
 import ru.test.kladr.NodeLabel;
 
 import java.io.BufferedInputStream;
@@ -17,29 +19,29 @@ public class Main {
 			Configuration cfg = main.loadConfiguration();
 
 			Neo4jOperations operations = new Neo4jOperations(cfg);
-/*
-			operations.createNode(new KladrNode.Builder(NodeLabel.FEDERAL_REGION)
+			operations.createNode(new KladrNodeCommand.Builder(NodeLabel.FEDERAL_REGION)
 					.withName("Адыгея")
 					.withSocr("Респ")
 					.withKladrCode("0100000000000")
 					.build());
-			operations.createNode(new KladrNode.Builder(NodeLabel.FEDERAL_REGION)
+			operations.createNode(new KladrNodeCommand.Builder(NodeLabel.FEDERAL_REGION)
 					.withName("Башкортостан")
 					.withSocr("Респ")
 					.withKladrCode("0200000000000")
 					.build());
-			operations.createNode(new KladrNode.Builder(NodeLabel.FEDERAL_REGION)
+			operations.createNode(new KladrNodeCommand.Builder(NodeLabel.FEDERAL_REGION)
 					.withName("Бурятия")
 					.withSocr("Респ")
 					.withKladrCode("0300000000000")
 					.build());
-*/
+			operations.createNode(new KladrNodeCommand.Builder(NodeLabel.REGION)
+					.withName("Заиграевский")
+					.withSocr("р-н")
+					.withKladrCode("0300600000000")
+					.build());
 
-			operations.createRelationship(new KladrNode.Builder(NodeLabel.FEDERAL_REGION)
-					.withName("Адыгея")
-					.withSocr("Респ")
-					.withKladrCode("0100000000000")
-					.build(), null, null);
+			operations.createRelationship(
+					new KladrRelationshipCommand("0300000000000", "0300600000000", KladrRelationshipType.CHILD));
 
 		} catch (Exception e) {
 			e.printStackTrace();

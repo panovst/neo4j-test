@@ -14,6 +14,8 @@ public class KladrNode {
 	private String socr;
 	private String kladrCode;
 
+	private Node source;
+
 	private KladrNode(NodeLabel label) {
 		this.label = label;
 	}
@@ -52,6 +54,14 @@ public class KladrNode {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	protected Node getSource() {
+		return source;
+	}
+
+	protected void setSource(Node source) {
+		this.source = source;
 	}
 
 	public static class Builder {
@@ -93,6 +103,7 @@ public class KladrNode {
 				result.setName(String.valueOf(node.getProperty(KladrNode.NAME_PROPERTY)));
 				result.setSocr(String.valueOf(node.getProperty(KladrNode.SOCR_PROPERTY)));
 				result.setKladrCode(String.valueOf(node.getProperty(KladrNode.KLADR_CODE_PROPERTY)));
+				result.setSource(node);
 			}
 		}
 		return result;
